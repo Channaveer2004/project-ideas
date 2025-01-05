@@ -13,6 +13,7 @@ import {
 import { categoryTechnologies } from "@/lib/data";
 import axios from "axios";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import ReactMarkdown from 'react-markdown';
 
 export function ProjectIdeas() {
   const [geneIdea, setGeneIdea] = useState("");
@@ -77,7 +78,7 @@ export function ProjectIdeas() {
 
 
     setLoading(true);
-    
+
     const payload = {
       contents: [
         {
@@ -116,8 +117,8 @@ export function ProjectIdeas() {
   const selectedTechnologies =
     filters.categories.length > 0
       ? categoryTechnologies[
-          filters.categories[0] as keyof typeof categoryTechnologies
-        ]
+      filters.categories[0] as keyof typeof categoryTechnologies
+      ]
       : [];
 
   return (
@@ -240,49 +241,50 @@ export function ProjectIdeas() {
             "Generate Project Idea"
           )}
         </Button>
-        
-        {geneIdea && (
-        <div className="mt-8">
-          <div className="bg-red-800 text-white p-3 rounded-t-lg">
-            {sections[0]?.title}
-          </div>
-          
-          <div className="border rounded-b-lg">
-            <Tabs defaultValue="Category" className="w-full">
-              <TabsList className="w-full h-auto flex flex-wrap gap-2 justify-start p-2 bg-muted/50">
-                <TabsTrigger value="Category" className="px-4 py-2 rounded-md data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                  Category
-                </TabsTrigger>
-                <TabsTrigger value="Technologies" className="px-4 py-2 rounded-md data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                  Technologies
-                </TabsTrigger>
-                <TabsTrigger value="Complexity" className="px-4 py-2 rounded-md data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                  Complexity
-                </TabsTrigger>
-                <TabsTrigger value="Audience" className="px-4 py-2 rounded-md data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                  Audience
-                </TabsTrigger>
-                <TabsTrigger value="Description" className="px-4 py-2 rounded-md data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                  Project Description
-                </TabsTrigger>
-              </TabsList>
-              {sections.map(section => (
-                <TabsContent 
-                  key={section.title} 
-                  value={section.title} 
-                  className="mt-4 p-6 focus-visible:outline-none focus-visible:ring-0"
-                >
-                  <div className="prose dark:prose-invert">
-                    {section.content}
-                  </div>
-                </TabsContent>
-              ))}
-            </Tabs>
-          </div>
-        </div>
-      )}
 
+        {geneIdea && (
+  <div className="mt-8">
+    <div className="bg-blue-800 text-white p-3 rounded-t-lg">
+      <strong>{sections[0]?.title}</strong> {/* Bold the title */}
     </div>
+
+    <div className="border rounded-b-lg bg-gray-800">
+      <Tabs defaultValue="Category" className="w-full">
+        <TabsList className="w-full h-auto flex flex-wrap gap-2 justify-start p-2 bg-muted/50">
+          <TabsTrigger value="Category" className="px-4 py-2 rounded-md data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+            Category
+          </TabsTrigger>
+          <TabsTrigger value="Technologies" className="px-4 py-2 rounded-md data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+            Technologies
+          </TabsTrigger>
+          <TabsTrigger value="Complexity" className="px-4 py-2 rounded-md data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+            Complexity
+          </TabsTrigger>
+          <TabsTrigger value="Audience" className="px-4 py-2 rounded-md data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+            Audience
+          </TabsTrigger>
+          <TabsTrigger value="Description" className="px-4 py-2 rounded-md data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+            <strong>Project Description</strong> {/* Bold tab heading */}
+          </TabsTrigger>
+        </TabsList>
+        {sections.map((section) => (
+          <TabsContent
+            key={section.title}
+            value={section.title}
+            className="mt-4 p-6 focus-visible:outline-none focus-visible:ring-0"
+          >
+            <ReactMarkdown className="prose dark:prose-invert">
+              {section.content} 
+            </ReactMarkdown>
+          </TabsContent>
+        ))}
+      </Tabs>
+    </div>
+  </div>
+)}
+
+
+      </div>
     </div>
   );
 }
